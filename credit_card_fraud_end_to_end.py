@@ -134,7 +134,12 @@ def plot_class_imbalance(df: pd.DataFrame, out_dir: str = OUT_DIR) -> pd.DataFra
         ax.text(i, row["Count"] * 1.01, f"{row['Count']:,}", ha="center")
     plt.title("Class Imbalance: Legit vs Fraud")
     plt.ylabel("Number of Transactions")
-    plt.legend().remove()
+
+    # Remove legend only if one was created
+    leg = plt.gca().get_legend()
+    if leg is not None:
+        leg.remove()
+
     savefig(os.path.join(out_dir, "class_imbalance_bar.png"))
     plt.close()
     return counts
